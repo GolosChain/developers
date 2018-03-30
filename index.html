@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="assets/css/roboto-webfont.css" />
 
         <!--Theme custom css -->
-        <link rel="stylesheet" href="assets/css/style.css?2">
+        <link rel="stylesheet" href="assets/css/style.css?3">
 
         <!--Theme Responsive css-->
         <link rel="stylesheet" href="assets/css/responsive.css" />
@@ -141,15 +141,48 @@
 
                         <div class="col-sm-6 margin-top-60">
                             <div class="single_features_right ">
-                                <h2>OUR PRODUCT</h2>
-                                <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-                                <ul>
-                                    <li>Quisque volutpat mattis eros.</li>
-                                    <li>Nullam malesuada erat ut turpis.</li>
-                                    <li>Suspendisse urna nibh.</li>
-                                </ul>
+                                <h2>Установка и запуск</h2>
+								<div>
+									<ul class="nav nav-tabs" role="tablist">
+										<li role="presentation" class="active"><a href="#nodejs-install" aria-controls="nodejs-install" role="tab" data-toggle="tab">NodeJS</a></li>
+										<li role="presentation"><a href="#html-install" aria-controls="html-install" role="tab" data-toggle="tab">HTML</a></li>
+									</ul>
+									<br>
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane active" id="nodejs-install">
+											<div id="nodejs-code">
+												<textarea>
+npm install golos-js
+node
+var golos = require('golos-js');
+var query = {
+	select_tags: ['dev'],
+	limit: 10
+};
+golos.api.getDiscussionsByTrending(query, console.log);
+												</textarea>
+											</div>
+											<pre><code class="javascript" id="nodejs-code-output"></code></pre>
+										</div>
+										<div role="tabpanel" class="tab-pane" id="html-install">	
+											<div id="html-code">
+												<textarea>
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/golos-js@0.6.2/dist/golos.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var query = {
+	select_tags: ['dev'],
+	limit: 10
+};
+golos.api.getDiscussionsByTrending(query, console.log);
+&lt;/script&gt;
+												</textarea>
+											</div>
+											<pre><code class="html" id="html-code-output"></code></pre>
+										</div>
+									</div>
+								</div>
                                 <div class="features_buttom">
-                                    <a href="" class="btn btn-default">Read More</a>
+                                    <a href="" class="btn btn-default">Подробнее</a>
                                 </div>
                             </div>
                         </div>
@@ -697,6 +730,6 @@
 		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js" type="text/javascript"></script>
 		
-        <script src="assets/js/main.js?2"></script>
+        <script src="assets/js/main.js?3"></script>
     </body>
 </html>

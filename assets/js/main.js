@@ -180,7 +180,19 @@ jQuery(document).ready(function ($) {
 new Typed('#logo-typed', {
 	stringsElement: '#logo-strings',
 	typeSpeed: 100,
-	backSpeed: 0,
 	cursorChar: '',
+	loop: true
+});
+
+new Typed('#nodejs-code-output', {
+	stringsElement: '#nodejs-code',
+	typeSpeed: 100,
+	cursorChar: '\u2588',
+	loop: true
+});
+new Typed('#html-code-output', {
+	stringsElement: '#html-code',
+	typeSpeed: 100,
+	cursorChar: '\u2588',
 	loop: true
 });
