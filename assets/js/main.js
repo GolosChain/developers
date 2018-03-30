@@ -176,3 +176,11 @@ jQuery(document).ready(function ($) {
 
     //End
 });
+
+new Typed('#logo-typed', {
+	stringsElement: '#logo-strings',
+	typeSpeed: 100,
+	backSpeed: 0,
+	cursorChar: '',
+	loop: true
+});
