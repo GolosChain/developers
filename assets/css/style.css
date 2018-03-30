@@ -1692,3 +1692,7 @@ xkeyframes
 .navbar-brand {
 	font-size: 30px;
 }
+
+.community-edition img {
+	max-height: 7em;
+}
