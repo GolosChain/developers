@@ -196,3 +196,78 @@ new Typed('#html-code-output', {
 	cursorChar: '\u2588',
 	loop: true
 });
+
+/*var golosTest = Object.assign({}, golos);
+golosTest.config.set('websocket', 'wss://ws.testnet.golos.io');
+setInterval(function() {
+	golos.api.getConfig(function(err, result) {
+		if ( ! err) {
+			document.getElementById('mainnet-version').innerHTML = result.STEEMIT_BLOCKCHAIN_VERSION;
+			document.getElementById('mainnet-status').innerHTML = 'ON';
+		}
+	});
+	golosTest.api.getConfig(function(err, result) {
+		if ( ! err) {
+			document.getElementById('testnet-version').innerHTML = result.STEEMIT_BLOCKCHAIN_VERSION;
+			document.getElementById('testnet-status').innerHTML = 'ON';
+		}
+	});
+}, 3000);*/
+
+let getBlockchainVersion = function(nodeAddress, callback) {
+	let socket = new WebSocket(nodeAddress);
+	socket.onopen = function(event) {
+		socket.send(JSON.stringify({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'call',
+			params: ['database_api', 'get_config', [0], ]
+		}));
+		socket.onmessage = function(raw) {
+			let data = JSON.parse(raw.data);
+			socket.close();
+			callback(null, data.result);
+		};
+	};
+	/*socket.onclose = function(event) {
+		if (event.code != 1000) {
+			console.error('onclose', event.code);
+			callback(event.code, null); // 1006
+		}
+	};*/
+	socket.onerror = function(event) {
+		console.error('onerror', event);
+		callback(event.code, null);
+	}
+};
+
+if (WebSocket) {
+	setInterval(function() {
+		getBlockchainVersion('wss://ws.golos.io', function(err, result) {
+			if (result) {
+				document.getElementById('mainnet-version').innerHTML = result.STEEMIT_BLOCKCHAIN_VERSION;
+				document.getElementById('mainnet-status').innerHTML = 'ON';
+				document.getElementById('mainnet-status').className = 'label label-success';
+			}
+			else if (err) {
+				document.getElementById('mainnet-version').innerHTML = '';
+				document.getElementById('mainnet-status').innerHTML = 'OFF';
+				document.getElementById('mainnet-status').className = 'label label-danger';
+			}
+		});
+	}, 3000);
+	setInterval(function() {
+		getBlockchainVersion('wss://ws.testnet.golos.io', function(err, result) {
+			if (result) {
+				document.getElementById('testnet-version').innerHTML = result.STEEMIT_BLOCKCHAIN_VERSION;
+				document.getElementById('testnet-status').innerHTML = 'ON';
+				document.getElementById('testnet-status').className = 'label label-success';
+			}
+			else if (err) {
+				document.getElementById('testnet-version').innerHTML = '';
+				document.getElementById('testnet-status').innerHTML = 'OFF';
+				document.getElementById('testnet-status').className = 'label label-danger';
+			}
+		});
+	}, 3000);
+}
