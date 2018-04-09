@@ -1696,3 +1696,7 @@ xkeyframes
 .community-edition img {
 	max-height: 7em;
 }
+
+.navbar-default .navbar-nav>li>a {
+	font-size: 12px;
+}
