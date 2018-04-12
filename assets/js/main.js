@@ -177,6 +177,7 @@ jQuery(document).ready(function ($) {
     //End
 });
 
+
 new Typed('#logo-typed', {
 	stringsElement: '#logo-strings',
 	typeSpeed: 100,
@@ -184,18 +185,21 @@ new Typed('#logo-typed', {
 	loop: true
 });
 
-new Typed('#nodejs-code-output', {
-	stringsElement: '#nodejs-code',
-	typeSpeed: 100,
-	cursorChar: '\u2588',
-	loop: true
-});
-new Typed('#html-code-output', {
-	stringsElement: '#html-code',
-	typeSpeed: 100,
-	cursorChar: '\u2588',
-	loop: true
-});
+let $nodejsCodeOutput = document.getElementById('#nodejs-code-output');
+if ($nodejsCodeOutput) {
+	new Typed($nodejsCodeOutput, {
+		stringsElement: '#nodejs-code',
+		typeSpeed: 100,
+		cursorChar: '\u2588',
+		loop: true
+	});
+	new Typed('#html-code-output', {
+		stringsElement: '#html-code',
+		typeSpeed: 100,
+		cursorChar: '\u2588',
+		loop: true
+	});
+}
 
 /*var golosTest = Object.assign({}, golos);
 golosTest.config.set('websocket', 'wss://ws.testnet.golos.io');
@@ -270,4 +274,43 @@ if (WebSocket) {
 			}
 		});
 	}, 3000);
+}
+
+let $vacanciesList = document.getElementById('vacancies-list');
+if ($vacanciesList) {
+	fetch('https://api.hh.ru/vacancies?employer_id=2834910')
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+			if (json.items) {
+				console.log(json.items);
+				json.items.forEach(function(row) {
+					let $newRow = document.createElement('li');
+					//$newRow.className = 'cd-popular';
+					$newRow.innerHTML = `
+						<ul class="cd-pricing-wrapper">
+							<li data-type="monthly" class="is-visible">
+								<header class="cd-pricing-header">
+									<h2>${row.name}</h2>
+									<div class="cd-price">
+										<span class="cd-value">${row.salary ? `от ${row.salary.from}${row.salary.to ? ` до ${row.salary.to}` : ``} ${row.salary.currency}` : `з/п не указана`}</span>
+									</div>
+								</header>
+								<!--<div class="cd-pricing-body">
+									<ul class="cd-pricing-features">
+										<li><em><i class="fa fa-check-circle"></i></em>Уверенное владение С++</li>
+									</ul>
+								</div>-->
+								<footer class="cd-pricing-footer">
+									<a class="cd-select" target="_blank" href="${row.alternate_url}">Подробнее</a>
+								</footer>
+							</li>
+						</ul>
+					`;
+					$vacanciesList.appendChild($newRow);
+				});
+			}
+		})
+		.catch(alert);
 }

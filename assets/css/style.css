@@ -1700,3 +1700,13 @@ xkeyframes
 .navbar-default .navbar-nav>li>a {
 	font-size: 12px;
 }
+
+#vacancies-list .cd-pricing-header {
+	min-height: 180px;
+}
+
+@media only screen and (min-width: 768px) {
+	.cd-has-margins #vacancies-list.cd-pricing-list > li {
+		width: 48%;
+	}
+}
