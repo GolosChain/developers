@@ -185,7 +185,7 @@ new Typed('#logo-typed', {
 	loop: true
 });
 
-if (document.getElementById('#nodejs-code-output')) {
+if (document.getElementById('nodejs-code-output')) {
 	new Typed('#nodejs-code-output', {
 		stringsElement: '#nodejs-code',
 		typeSpeed: 100,
