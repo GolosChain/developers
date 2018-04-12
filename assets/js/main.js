@@ -185,9 +185,8 @@ new Typed('#logo-typed', {
 	loop: true
 });
 
-let $nodejsCodeOutput = document.getElementById('#nodejs-code-output');
-if ($nodejsCodeOutput) {
-	new Typed($nodejsCodeOutput, {
+if (document.getElementById('#nodejs-code-output')) {
+	new Typed('#nodejs-code-output', {
 		stringsElement: '#nodejs-code',
 		typeSpeed: 100,
 		cursorChar: '\u2588',
