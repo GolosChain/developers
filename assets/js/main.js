@@ -313,3 +313,42 @@ if ($vacanciesList) {
 		})
 		.catch(alert);
 }
+
+let $bountiesList = document.getElementById('bounties-list');
+if ($bountiesList) {
+	fetch('https://api.github.com/repos/GolosChain/advances/issues?state=open&labels=bounty')
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+			if (json) {
+				//console.log(json);
+				json.forEach(function(row) {
+					let $newRow = document.createElement('li');
+					//$newRow.className = 'cd-popular';
+					$newRow.innerHTML = `
+						<ul class="cd-pricing-wrapper">
+							<li data-type="monthly" class="is-visible">
+								<header class="cd-pricing-header">
+									<h2>${row.title}</h2>
+									<!--<div class="cd-price">
+										<span class="cd-value">${row.salary ? `от ${row.salary.from}${row.salary.to ? ` до ${row.salary.to}` : ``} ${row.salary.currency}` : `з/п не указана`}</span>
+									</div>-->
+								</header>
+								<!--<div class="cd-pricing-body">
+									<ul class="cd-pricing-features">
+										<li><em><i class="fa fa-check-circle"></i></em>Уверенное владение С++</li>
+									</ul>
+								</div>-->
+								<footer class="cd-pricing-footer">
+									<a class="cd-select" target="_blank" href="${row.html_url}">Подробнее</a>
+								</footer>
+							</li>
+						</ul>
+					`;
+					$bountiesList.appendChild($newRow);
+				});
+			}
+		})
+		.catch(alert);
+}
