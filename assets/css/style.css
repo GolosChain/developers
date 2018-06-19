@@ -1711,6 +1711,10 @@ xkeyframes
 	}
 }
 
+#apps {
+	padding-top: initial;
+}
+
 #app-html {
 	display: none;
 }
