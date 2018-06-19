@@ -352,3 +352,74 @@ if ($bountiesList) {
 		})
 		.catch(alert);
 }
+
+let $appsList = document.getElementById('apps-list');
+if ($appsList) {
+	let markdownConverter = new showdown.Converter({ noHeaderId: true, openLinksInNewWindow: true });
+	let $appModal = document.querySelector('#app-modal'),
+		$appModalTitle = $appModal.querySelector('.modal-title'),
+		$appModalBody = $appModal.querySelector('.modal-body'),
+		$appHtml = document.querySelector('#app-html');
+	fetch('https://api.github.com/repos/GolosChain/apps/contents')
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+			json.forEach(function(dir) {
+				if (dir.type == 'dir') {
+					//console.log(dir.name);
+					fetch(dir.url)
+						.then(function(response) {
+							return response.json();
+						})
+						.then(function(files) {
+							files.forEach(function(file) {
+								fetch(file.url)
+									.then(function(response) {
+										return response.json();
+									})
+									.then(function(fileDetail) {
+										fileDetail.content = decodeURIComponent(escape(window.atob(fileDetail.content)));
+										let $newRow = document.createElement('li');
+										//$newRow.className = 'cd-popular';
+										let htmlContent = markdownConverter.makeHtml(fileDetail.content);
+										$appHtml.innerHTML = htmlContent;
+										let appTitle = $appHtml.querySelector('h1').innerHTML;
+										$newRow.innerHTML = `
+											<ul class="cd-pricing-wrapper">
+												<li data-type="monthly" class="is-visible">
+													<header class="cd-pricing-header">
+														<h2>${fileDetail.name.replace('-', ' ').replace('.md', '')}</h2>
+														<div class="cd-price">
+															<span class="cd-value">${appTitle}</span>
+														</div>
+													</header>
+													<!--<div class="cd-pricing-body">
+														<ul class="cd-pricing-features">
+															<li><em><i class="fa fa-check-circle"></i></em>Уверенное владение С++</li>
+														</ul>
+													</div>-->
+													<footer class="cd-pricing-footer">
+														<a class="cd-select" target="_blank" href="${fileDetail.html_url}">Подробнее</a>
+													</footer>
+												</li>
+											</ul>
+										`;
+										$appsList.appendChild($newRow);
+										$newRow.querySelector('a').addEventListener('click', (e) => {
+											e.preventDefault();
+											$appModalBody.innerHTML = htmlContent;
+											$appModalTitle.innerHTML = appTitle;
+											$appModalBody.querySelector('h1').remove();
+											$('#app-modal').modal('show');
+										});
+									})
+									.catch(console.error);
+							});
+						})
+						.catch(console.error);
+				}
+			});
+		})
+		.catch(alert);
+}

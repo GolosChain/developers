@@ -80,11 +80,11 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/developers">Главная</a></li>
-                        <li class="active"><a href="vacancies">Вакансии</a></li>
+                        <li><a href="vacancies">Вакансии</a></li>
                         <li><a target="_blank" href="https://developers.golos.io/doc/blockchain">Блокчейн документация</a></li>
                         <li><a target="_blank" href="https://explorer.golos.io/">Explorer</a></li>
 						<li><a href="bounties">Баунти</a></li>
-						<li><a href="apps">Приложения</a></li>
+						<li class="active"><a href="apps">Приложения</a></li>
 						<!--<li class="active"><a href="#home">Установка и запуск</a></li>-->
                         <!--<li><a href="#price">Библиотеки</a></li>-->
                         <!--<li><a href="#business">Комьюнити</a></li>-->
@@ -99,14 +99,34 @@
 		
 		<section id="price" class="price sections">
 			<div class="head_title text-center">
-				<h1>Вакансии</h1>
-				<p>Работайте с сильной командой над интересным и сложным проектом!</p>
+				<h1>Приложения</h1>
+				<p>Список всех приложений на блокчейн Голос!</p>
+				<p><b>Для добавления нового приложения нужно сделать Pull request в репозиторий: <a target="_blank" href="https://github.com/GolosChain/apps">https://github.com/GolosChain/apps</a></b></p>
 			</div>
 			<div class="cd-pricing-container cd-has-margins">
-				<ul class="cd-pricing-list cd-bounce-invert" id="vacancies-list">
+				<ul class="cd-pricing-list cd-bounce-invert" id="apps-list">
 				</ul>
 			</div>
 		</section>
+		
+		<div class="modal fade" tabindex="-1" role="dialog" id="app-modal">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">О приложении</h4>
+					</div>
+					<div class="modal-body">
+						Описание приложения
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="app-html"></div>
 
         <!--Footer-->
         <footer id="footer" class="footer">
@@ -154,6 +174,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js" type="text/javascript"></script>
 		
 		<!--<script src="https://cdn.jsdelivr.net/npm/golos-js@0.6.1/dist/golos.min.js"></script>-->
+		
+		<script src="https://cdn.jsdelivr.net/npm/showdown@1.8.6/dist/showdown.min.js"></script>
 		
         <script src="assets/js/main.js?5"></script>
     </body>

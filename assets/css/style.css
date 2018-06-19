@@ -1710,3 +1710,11 @@ xkeyframes
 		width: 48%;
 	}
 }
+
+#app-html {
+	display: none;
+}
+
+#apps-list .cd-pricing-header {
+    min-height: 180px;
+}
